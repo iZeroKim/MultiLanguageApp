@@ -16,25 +16,24 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Languages',
       locale: Locale('en', 'US'),
-      translations: TranslationsClass extends Translations(),
+      translations: TranslationsClass(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Language App'),
+      home: HomePage(),
     );
   }
 }
 
 class TranslationsClass extends Translations {
   @override
-  // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
     //ENGLISH LANGUAGE
     'en_US':{
       'hello':'Hello World',
       'message':'Welcome to My Car App',
       'title':'Flutter Language - Localization',
-      'sub':'Subscribe Now',
+      'subscribe':'Subscribe Now',
       'changelang':'Change Language'
     },
     //KISWAHILI LANGUAGE
@@ -42,42 +41,71 @@ class TranslationsClass extends Translations {
       'hello':'Mambo Ulimwegu',
       'message':'Karibu My Car App',
       'title':'Lugha ya Flutter - Ujanibishaji',
-      'sub':'Jiandikishe Sasa',
+      'subscribe':'Jiandikishe Sasa',
       'changelang':'Changua Lugha'
     },
   };
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatelessWidget {
+  final List languages = [
+    {'name':'ENGLISH', 'locale': Locale('en', 'US')},
+    {'name':'KISWAHILI', 'locale': Locale('sw', 'KE')},
+  ];
 
+  updateLanguage(Locale locale){
+    Get.back();
+    Get.updateLocale(locale);
+  }
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
+  buildLanguageDialog(BuildContext context){
+    showDialog(context: context,
+        builder: (builder){
+          return AlertDialog(
+            title: Text('Choose Your Language'),
+            content: Container(
+              width: double.maxFinite,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context,index){
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(child: Text(languages[index]['name']),onTap: (){
+                        print(languages[index]['name']);
+                        updateLanguage(languages[index]['locale']);
+                      },),
+                    );
+                  }, separatorBuilder: (context,index){
+                return Divider(
+                  color: Colors.blue,
+                );
+              }, itemCount: languages.length
+              ),
+            ),
+          );
+        }
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
+        appBar: AppBar(title: Text('title'.tr),),
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+          children: [
+            Text('hello'.tr,style: TextStyle(fontSize: 15),),
+            SizedBox(height: 10,),
+            Text('message'.tr,style: TextStyle(fontSize: 20),),
+            SizedBox(height: 10,),
+            Text('subscribe'.tr,style: TextStyle(fontSize: 20),),
+
+            ElevatedButton(onPressed: (){
+              buildLanguageDialog(context);
+            }, child: Text('changelang'.tr)),
           ],
-        ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+        )
     );
   }
 }
+
+
