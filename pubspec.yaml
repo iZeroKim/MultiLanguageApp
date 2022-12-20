@@ -15,12 +15,13 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  get: ^4.6.5
 
 
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
-  intl: 
+  intl:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
