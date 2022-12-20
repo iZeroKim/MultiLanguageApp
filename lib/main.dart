@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Languages',
       locale: Locale('en', 'US'),
-      translations: TranslationsClass(),
+      translations: TranslationsClass extends Translations(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,7 +25,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class TranslationsClass {
+class TranslationsClass extends Translations {
+  @override
+  // TODO: implement keys
+  Map<String, Map<String, String>> get keys => {
+    //ENGLISH LANGUAGE
+    'en_US':{
+      'hello':'Hello World',
+      'message':'Welcome to My Car App',
+      'title':'Flutter Language - Localization',
+      'sub':'Subscribe Now',
+      'changelang':'Change Language'
+    },
+    //KISWAHILI LANGUAGE
+    'sw_KE':{
+      'hello':'Mambo Ulimwegu',
+      'message':'Karibu My Car App',
+      'title':'Lugha ya Flutter - Ujanibishaji',
+      'sub':'Jiandikishe Sasa',
+      'changelang':'Changua Lugha'
+    },
+  };
 }
 
 class MyHomePage extends StatefulWidget {
