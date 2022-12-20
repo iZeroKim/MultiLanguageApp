@@ -1,6 +1,7 @@
-# flutter_lang
+# Flutter lang
 
-A new Flutter project.
+A Flutter multilanguage app.  Currently supports Kiswahili and English. It is a perfect 
+Multilanguage app starting point
 
 ## Getting Started
 
